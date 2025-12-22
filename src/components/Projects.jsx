@@ -11,16 +11,16 @@ function Projects() {
       link: "https://social-media-9jg8.onrender.com",
     },
     {
-      title: "Electricity Board",
-      description: "A full-stack bookstore app with authentication and payments.",
-      tech: "Node.js, Express, MongoDB,,Django, React",
-      link: "https://elect-frontend.onrender.com.com",
-    },
-      {
       title: "E-commerce Website",
       description: "A React + Django web app to search Products using an external API.",
       tech: "React, Node.js, API Integration",
       link: "https://ecommerce2-4y1i.onrender.com",
+    },
+     {
+      title: "Youtube Clone",
+      description: "A Youtube clone with search functionality and youtube videos.",
+      tech: "Node.js, Express, MongoDB,React",
+      link: "https://youtube-frontend-rqba.onrender.com",
     },
   ];
 
