@@ -14,11 +14,12 @@ function Projects() {
       title: "E-commerce Website",
       description: "A React + Django web app to search Products using an external API.",
       tech: "React, Node.js, API Integration",
-      link: "https://ecommerce2-4y1i.onrender.com",
+      link: "https://ecommerce-2-frontend-0wev.onrender.com",
     },
      {
       title: "Youtube Clone",
       description: "A Youtube clone with search functionality and youtube videos.",
+     
       tech: "Node.js, Express, MongoDB,React",
       link: "https://youtube-frontend-rqba.onrender.com",
     },
@@ -32,6 +33,7 @@ function Projects() {
           <div key={i} className="project-card">
             <h3>{p.title}</h3>  
             <p>{p.description}</p>
+            <p>{p.sourceCode}</p>
             <p><strong>Tech Stack:</strong> {p.tech}</p>
             <a href={p.link} target="_blank" rel="noreferrer">click  to  redirect</a>
           </div>
