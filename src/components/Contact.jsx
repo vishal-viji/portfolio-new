@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import "../Styles/Contact.css";
 
 function Contact() {
@@ -9,24 +8,57 @@ function Contact() {
     message: "",
   });
 
+  // 🔹 Restore last saved message from localStorage when component loads
+  useEffect(() => {
+    const savedMessages =
+      JSON.parse(localStorage.getItem("contactMessages")) || [];
+
+    if (savedMessages.length > 0) {
+      const lastMessage = savedMessages[savedMessages.length - 1];
+
+      setFormData({
+        name: lastMessage.name || "",
+        email: lastMessage.email || "",
+        message: lastMessage.message || "",
+      });
+    }
+  }, []);
+
+  // 🔹 Handle input change
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const submitHandler = async (e) => {
+  // 🔹 Submit form & store in localStorage
+  const submitHandler = (e) => {
     e.preventDefault();
 
-    try {
-      await axios.post(
-        import.meta.env.REACT_API_URL + "/api/contact",
-        formData
-      );
+    const storedMessages =
+      JSON.parse(localStorage.getItem("contactMessages")) || [];
 
-      alert("Message sent successfully ✅");
-      setFormData({ name: "", email: "", message: "" });
-    } catch (error) {
-      alert("Failed to send message ❌");
-    }
+    const newMessage = {
+      ...formData,
+      createdAt: new Date().toISOString(),
+    };
+
+    storedMessages.push(newMessage);
+
+    localStorage.setItem(
+      "contactMessages",
+      JSON.stringify(storedMessages)
+    );
+
+    alert("Your Message has been Sent ✅");
+
+    // Clear form after submission
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+    });
   };
 
   return (
@@ -34,7 +66,6 @@ function Contact() {
       <h2>Contact Me</h2>
       <p>Let’s build something amazing together!</p>
 
-      {/* CONTACT FORM */}
       <form className="contact-form" onSubmit={submitHandler}>
         <input
           type="text"
@@ -60,37 +91,39 @@ function Contact() {
           value={formData.message}
           onChange={handleChange}
           required
-        />
+        ></textarea>
 
         <button type="submit">Send Message</button>
       </form>
 
-      {/* YOUR LINKS (keep these) */}
+      {/* 🔹 Contact Links */}
       <div className="contact-links">
         <p>
-          Email:
+          Email:{" "}
           <a href="mailto:vishalshanmugam928@example.com">
             vishalshanmugam928@example.com
           </a>
         </p>
+
         <p>
-          LinkedIn:
+          LinkedIn:{" "}
           <a
             href="https://www.linkedin.com/in/vishal-vishal-3711ba293/"
             target="_blank"
             rel="noreferrer"
           >
-            linkedin.com/in/vishal
+            LinkedIn Profile
           </a>
         </p>
+
         <p>
-          GitHub:
+          GitHub:{" "}
           <a
             href="https://github.com/vishal-viji"
             target="_blank"
             rel="noreferrer"
           >
-            github.com/vishal-viji
+            Github Profile
           </a>
         </p>
       </div>
